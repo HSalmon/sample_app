@@ -29,7 +29,7 @@ describe "User pages" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
       end
-    end
+    end #hope
 
     describe "with valid information" do
       before do
@@ -39,9 +39,29 @@ describe "User pages" do
         fill_in "Confirmation", with: "foobar"
       end
 
-      it "should create a user" do
-        expect { click_button submit }.to change(User, :count).by(1)
+      #johns code #########  #? why does this work and code below not?
+      # it "should create a user" do
+      #   expect { click_button submit }.to change(User, :count).by(1)
+      # end  
+
+      # describe "after saving user" do
+      #   before { click_button submit }
+      #   it { should have_link('Sign out') }
+      # end
+      #######################
+
+
+
+      describe "after saving user" do
+        it "should create a user" do
+          expect { click_button submit }.to change(User, :count).by(1)
+        end  #hope
+      
+        it "will have a signout link on destination page" do
+            click_button submit
+            should have_link('Sign out') 
+          end
       end
-    end
+    end    
   end
 end
