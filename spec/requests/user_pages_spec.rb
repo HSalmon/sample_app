@@ -6,21 +6,21 @@ describe "User pages" do
 
   describe "index" do
 
-    let(:user) { FactoryGirl.create(user) }
+    let(:user) { FactoryGirl.create(:user, email: 'unique.user@example.org') }
 
     before(:each) do
       sign_in user
       visit users_path
     end
-    
+
     it { should have_selector('title', text: 'All users') }
     it { should have_selector('h1',    text: 'All users') }
-    
+
     describe "pagination" do
-      
+
       before(:all) { 30.times { FactoryGirl.create(:user) } }
       after(:all)  { User.delete_all }
-      
+
       it { should have_selector('div.pagination') }
 
       it "should list each user" do
@@ -69,7 +69,7 @@ describe "User pages" do
       #johns code #########  #? why does this work and code below not?
       # it "should create a user" do
       #   expect { click_button submit }.to change(User, :count).by(1)
-      # end  
+      # end
 
       # describe "after saving user" do
       #   before { click_button submit }
@@ -84,7 +84,7 @@ describe "User pages" do
           expect { click_button submit }.to change(User, :count).by(1)
         end
         #hope
-      
+
         it "will have a signout link on destination page" do
             click_button submit
             should have_link('Sign out')
@@ -106,7 +106,7 @@ describe "User pages" do
       it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
 
-    describe "with invalid information" do 
+    describe "with invalid information" do
       before { click_button "Save changes" }
       it { should have_content('error')}
     end
@@ -128,5 +128,5 @@ describe "User pages" do
       specify { user.reload.name.should  == new_name }
       specify { user.reload.email.should == new_email }
     end
-  end 
+  end
 end
