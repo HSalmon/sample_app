@@ -6,7 +6,7 @@ describe "User pages" do
 
   describe "index" do
 
-    let(:user) { FactoryGirl.create(:user) }
+    let(:user) { FactoryGirl.create(:user, email: 'unique.user@example.org') }
 
     before(:each) do
       sign_in user
